@@ -3,6 +3,11 @@
 <h4 align="center">Lákalo by tě python.cz udržovat, rozvíjet, nebo to celé předělat? <a href="https://docs.pyvec.org/operations/support.html#sit-kontaktu">Ozvi se na Slacku!</a></h4>
 <hr>
 
+# test = "python -m pytest ./tests --cov=pythoncz --tb=native"
+# build = "python runserver.py freeze"
+# deploy = "python runserver.py deploy --no-freeze --push"
+
+
 # python.cz
 
 Czech Python community homepage.
@@ -11,7 +16,7 @@ Czech Python community homepage.
 
 The code is **Python 3.7**.
 
-1.  [Install Pipenv](https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv)
+1.  [Install Poetry](https://python-poetry.org/docs/#installation)
 1.  Clone the project:
 
     ```sh
@@ -23,7 +28,7 @@ The code is **Python 3.7**.
 
     ```
     $ cd ./python.cz
-    $ pipenv install --dev
+    $ poetry install
     ```
 
 ### Development
@@ -32,7 +37,7 @@ The site uses GitHub API. For certain pages to work correctly, you need to set t
 
 ```sh
 $ export GITHUB_TOKEN=...
-$ pipenv run serve
+$ poetry run python runserver.py serve
 ```
 
 ### Deployment

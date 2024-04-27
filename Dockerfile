@@ -13,18 +13,23 @@
 #
 #     docker run -p 8000:8000 -e GITHUB_TOKEN=token123 python.cz
 
-FROM python:3.7-alpine
+FROM python:3.9-alpine
 
-RUN python3 -m venv /venv
-RUN /venv/bin/pip install gunicorn pipenv
+RUN python3 -m pip install -U pip
+RUN python3 -m pip install poetry
 WORKDIR /app
+
+# Install dependencies (to use `docker build` cache if they haven't changed)
+COPY pyproject.toml poetry.lock ./
+RUN poetry install --no-root --with deployment 
+
 COPY . ./
-RUN /venv/bin/pipenv install
+RUN poetry install
 
 EXPOSE 8000
 
 CMD [ \
-  "/venv/bin/gunicorn", \
+  "poetry", "run", "gunicorn", \
   "--bind", "0.0.0.0:8000", \
   "--workers", "4", \
   "pythoncz:app" \
